@@ -1,0 +1,131 @@
+#include<iostream>
+
+using namespace std;
+
+class Matrix
+{
+private:
+	int** matrix;
+	int X; 
+	int Y; 
+public:
+	friend void Show(Matrix&);
+	friend void Get(Matrix&);
+
+
+	Matrix()
+	{
+		X = 0;
+		Y = 0;
+		matrix = NULL;
+	}
+
+	Matrix(int _X, int _Y)
+	{
+		X = _X;
+		Y = _Y;
+		matrix = new int* [X];
+
+		for (int i = 0; i < X; i++)
+			matrix[i] = new int[Y];
+
+		for (int i = 0; i < X; i++)
+		{
+			for (int j = 0; j < Y; j++)
+			{
+				matrix[i][j] = rand() % 10;
+			}
+		}
+
+	}
+	// Copy constructor
+	Matrix(const Matrix& N)
+	{
+		X = N.X;
+		Y = N.Y;
+
+		matrix = new int* [X];
+
+		for (int i = 0; i < X; i++)
+			matrix[i] = new int[Y];
+
+		for (int i = 0; i < X; i++)
+		{
+			for (int j = 0; j < Y; j++)
+			{
+				matrix[i][j] = N.matrix[i][j];
+			}
+		}
+	}
+	Matrix operator+ (const Matrix&);
+	Matrix operator& (const Matrix&);
+	// Destructor
+	~Matrix()
+	{
+
+	}
+	//--------------------------------------
+	void ShowMatrixOnScreen()
+	{
+		for (int i = 0; i < X; i++)
+		{
+			for (int j = 0; j < Y; j++)
+				cout << matrix[i][j] << "   ";
+			cout << endl;
+		}
+	}
+};
+Matrix Matrix::operator+(const Matrix& Obj)
+{
+	Matrix result(*this);
+	for (int i = 0; i < Obj.X; i++)
+		for (int j = 0; j < Obj.Y; j++)
+			result.matrix[i][j] += Obj.matrix[i][j];
+	return result;
+}
+
+Matrix Matrix::operator&(const Matrix& Obj)
+{
+	Matrix r(*this);
+	for (int i = 0; i < Obj.X; i++)
+		for (int j = 0; j < Obj.Y; j++)
+			r.matrix[i][j] *= Obj.matrix[i][j];
+	return r;
+}
+
+void Show(Matrix& Obj)
+{
+	for (int i = 0; i < Obj.X; i++) {
+		for (int j = 0; j < Obj.Y; j++)
+			cout << Obj.matrix[i][j] << " ";
+	}
+	cout << endl;
+}
+
+void Get(Matrix& Obj)
+{
+	for (int i = 0; i < Obj.X; i++)
+		for (int j = 0; j < Obj.Y; j++)
+		{
+			cout << "[" << i + 1 << "][" << j + 1 << "]";
+			cin >> Obj.matrix[i][j];
+		}
+}
+
+
+int main()
+{
+	Matrix x(5, 5);
+	x.ShowMatrixOnScreen();
+	cout << endl;
+	Matrix x1(5, 5);
+	x1.ShowMatrixOnScreen();
+	cout << endl;
+	x = x + x1;
+	x.ShowMatrixOnScreen();
+	cout << endl;
+	x = x & x1;
+	x.ShowMatrixOnScreen();
+	system("pause");
+}
+
