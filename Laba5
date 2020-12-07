@@ -1,0 +1,280 @@
+#include <iostream>
+#include <string>
+#include <limits>
+using namespace std;
+
+class Figure
+{
+public:
+	Figure(string _Name, int _Lines)
+	{
+		Name = _Name;
+		Lines = _Lines;
+	}
+	~Figure()
+	{
+
+	}
+	string getName()
+	{
+		return Name;
+	}
+	int getLines()
+	{
+		return Lines;
+	}
+	virtual void Print() = 0;
+private:
+	string Name;
+	int Lines;
+};
+
+class Circle:public Figure
+{
+public:
+	Circle(string _Name,int _Lines, double _Radius, int _X, int _Y) :Figure(_Name,_Lines)
+	{
+		Radius = _Radius;
+		X = _X;
+		Y = _Y;
+	}
+	~Circle()
+	{
+
+	}
+	void Print() {};
+	double getRadius()
+	{
+		return Radius;
+	}
+	int getX()
+	{
+		return X;
+	}
+	int getY()
+	{
+		return Y;
+	}
+private:
+	double Radius;
+	int X, Y;
+};
+
+class Foursquare:public Figure
+{
+public:
+	Foursquare(string _Name, int _Lines, double _Side, double _Perimetr) :Figure(_Name, _Lines)
+	{
+		Side = _Side;
+		Perimeter = _Perimetr;
+	}
+	~Foursquare()
+	{
+
+	}
+	void Print() {};
+	double getSide()
+	{
+		return Side;
+	}
+	double getPerimetr()
+	{
+		return Perimeter;
+	}
+private:
+	double Side;
+	double Perimeter;
+};
+
+class Triangle:public Figure
+{
+public:
+	Triangle(string _Name, int _Lines, int _A, int _B, int _C) :Figure(_Name, _Lines)
+	{
+		A = _A;
+		B = _B;
+		C = _C;
+	}
+	~Triangle()
+	{
+
+	}
+	void Print() {};
+	int getA()
+	{
+		return A;
+	}
+	int getB()
+	{
+		return B;
+	}
+	int getC()
+	{
+		return C;
+	}
+private:
+	int A,B,C;
+};
+
+class Figure_Circle:public Circle
+{
+public:
+	Figure_Circle(string _Name, int _Lines, double _Radius, int _X, int _Y) :Circle(_Name, _Lines, _Radius, _X, _Y)
+	{
+	
+	}
+	~Figure_Circle()
+	{
+
+	}
+	void Print()
+	{
+		cout << "Имя:" << getName() << " Линии:" << getLines() << " Радиус:" << getRadius() << " Координаты центра:" << getX() << ";" << getY() << endl;
+	}
+};
+
+class Figure_Foursquare :public Foursquare
+{
+public:
+	Figure_Foursquare(string _Name, int _Lines, double _Side, double _Perimetr):Foursquare(_Name,_Lines,_Side,_Perimetr)
+	{
+
+	}
+	~Figure_Foursquare()
+	{
+
+	}
+	void Print()
+	{
+		cout << "Имя:" << getName() << " Линии:" << getLines() << " Длина стороны:" << getSide() << " Периметр:" << getPerimetr() << endl;
+	}
+};
+
+class Figure_Triangle:public Triangle
+{
+public:
+	Figure_Triangle(string _Name, int _Lines, int _A, int _B, int _C) :Triangle(_Name, _Lines, _A, _B, _C)
+	{
+
+	}
+	~Figure_Triangle()
+	{
+
+	}
+	void Print()
+	{
+		cout << "Имя:" << getName() << " Линии:" << getLines() << " A:" << getA() << " B:" << getB() << " C:" << getC() << endl;
+	}
+};
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	cout << "Введите круг " << endl;
+	string Name;
+	cin >> Name;
+	cout << "Введите одну линию" << endl;
+	int Lines;
+	while (!(cin >> Lines) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "Введите радиус"<<endl;
+	double Radius;
+	while (!(cin >> Radius) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "Введите центр координат" << endl;
+	cout << "X" << endl;
+	int X;
+	while (!(cin >> X) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "Y" << endl;
+	int Y;
+	while (!(cin >> Y) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	Figure_Circle circle(Name,Lines,Radius, X, Y);
+	cout << "Введите квадрат " << endl;
+	cin >> Name;
+	cout << "Введите 4 линии" << endl;
+	while (!(cin >> Lines) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "Введите длину стороны" << endl;
+	double Side;
+	while (!(cin >> Side) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "Введите периметр" << endl;
+	double Perimetr;
+	while (!(cin >> Perimetr) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	Figure_Foursquare foursquare(Name,Lines,Side,Perimetr);
+	cout << "Введите треугольник " << endl;
+	cin>>Name;
+	cout << "Введите три линии" << endl;
+	while (!(cin >> Lines) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "Введите стороны треуголтника" << endl;
+	cout << "A" << endl;
+	int A;
+	while (!(cin >> A) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "B" << endl;
+	int B;
+	while (!(cin >> B) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	cout << "C" << endl;
+	int C;
+	while (!(cin >> C) || (cin.peek() != '\n'))
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Недопустимый ввод" << endl;
+	}
+	Figure_Triangle triangle(Name,Lines,A, B, C);
+	system("cls");
+	Figure*f[3];
+	f[0] = &circle;
+	f[1] = &foursquare;
+	f[2] = &triangle;
+	for (int i = 0; i < 3; i++)
+	{
+		f[i]->Print();
+	}
+	system("pause");
+}
